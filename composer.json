@@ -1,5 +1,5 @@
 {
-    "name": "noumo/easyii-shop",
+    "name": "gudufy/easyii-shop",
     "description": "Easyiicms simple shop with examples of all modules",
     "keywords": ["yii2", "cms", "control panel", "admin", "easy", "shop"],
     "homepage": "http://easyiicms.com",
@@ -13,7 +13,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "noumo/easyii": "dev-master"
+        "gudufy/easyii": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
