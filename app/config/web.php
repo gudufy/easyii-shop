@@ -9,13 +9,13 @@ $config = [
     'id' => 'app',
     'basePath' => $basePath,
     'bootstrap' => ['log'],
-    'language' => 'en-US',
+    'language' => 'zh-CN',
     'runtimePath' => $webroot . '/runtime',
     'vendorPath' => $webroot . '/vendor',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'Pxy2ChLZPtb9WD72neIB',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -73,4 +73,4 @@ if (YII_ENV_DEV) {
     $config['components']['db']['enableSchemaCache'] = false;
 }
 
-return array_merge_recursive($config, require($webroot . '/vendor/noumo/easyii/config/easyii.php'));
+return array_merge_recursive($config, require($webroot . '/vendor/gudufy/easyii/config/easyii.php'));

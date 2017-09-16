@@ -1,6 +1,7 @@
 <?php
 use yii\easyii\modules\shopcart\api\Shopcart;
 use yii\easyii\modules\subscribe\api\Subscribe;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use yii\widgets\Menu;
@@ -36,15 +37,30 @@ $goodsCount = count(Shopcart::goods());
                             ['label' => 'Contact', 'url' => ['/contact/index']],
                         ],
                     ]); ?>
-                    <a href="<?= Url::to(['/shopcart']) ?>" class="btn btn-default navbar-btn navbar-right" title="Complete order">
-                        <i class="glyphicon glyphicon-shopping-cart"></i>
-                        <?php if($goodsCount > 0) : ?>
-                            <?= $goodsCount ?> <?= $goodsCount > 1 ? 'items' : 'item' ?> - <?= Shopcart::cost() ?>$
-                        <?php else : ?>
-                            <span class="text-muted">empty</span>
+                    
+                    <div class="pull-right">
+                        <a href="<?= Url::to(['/shopcart']) ?>" class="btn btn-default navbar-btn" title="Complete order">
+                            <i class="glyphicon glyphicon-shopping-cart"></i>
+                            <?php if($goodsCount > 0) : ?>
+                                <?= $goodsCount ?> <?= $goodsCount > 1 ? 'items' : 'item' ?> - <?= Shopcart::cost() ?>$
+                            <?php else : ?>
+                                <span class="text-muted">empty</span>
+                            <?php endif; ?>
+                        </a>
+                        <?php if(Yii::$app->user->identity) : ?>
+                        <?= Html::a(
+                            Yii::$app->user->identity->username.' <span class="caret"></span>',
+                            ['/user'],
+                            ['class' => 'btn btn-default btn-flat','data-toggle'=>'dropdown']
+                        ) ?>
+                        <ul class="dropdown-menu">
+                            <li><?= Html::a('个人资料', ['/user/view']) ?></li>
+                            <li><?= Html::a('修改密码', ['/user/change-password']) ?></li>
+                            <li role="separator" class="divider"></li>
+                            <li><?= Html::a('退出登录', ['/user/logout'],['data-method' => 'post']) ?></li>
+                        </ul>
                         <?php endif; ?>
-                    </a>
-
+                    </div>
                 </div>
             </div>
         </nav>

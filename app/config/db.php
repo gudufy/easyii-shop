@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=DB_NAME',
-    'username' => 'DB_USER',
-    'password' => 'DB_PASSWORD',
+    'dsn' => 'mysql:host=localhost;dbname=easyii-shop',
+    'username' => 'root',
+    'password' => '1234',
     'charset' => 'utf8',
     'tablePrefix' => '',
     'enableSchemaCache' => true,
