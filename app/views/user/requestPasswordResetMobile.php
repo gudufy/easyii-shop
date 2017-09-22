@@ -15,13 +15,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>Please fill out your mobile. A link to reset password will be sent there.</p>
 
     <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+        <div class="col-lg-6">
+            <?php $form = ActiveForm::begin([
+                'id' => 'request-password-reset-form',
+                'options' => [
+                    'class' => 'form-horizontal',
+                ],
+                'fieldConfig' => [
+                    'template' => '{label}<div class="col-lg-6">{input}</div>{hint}{error}',
+                    'labelOptions' => [
+                        'class' => 'control-label col-lg-2',
+                    ],
+                ]
+            ]); ?>
                 <?= $form->field($model, 'mobile') ?>
-                <?= $form->field($model, 'smscode') ?>
+                <?= $form->field($model, 'smscode')->widget(yii\easyii\widgets\SMSCodeInput::className(),['validator'=>true]) ?>
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('rbac-admin', 'Send'), ['class' => 'btn btn-primary']) ?>
+                <div class="col-lg-offset-2 col-lg-10">
+                    <?= Html::submitButton('下一步', ['class' => 'btn btn-primary']) ?>
                 </div>
+            </div>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

@@ -115,6 +115,8 @@ class UserController extends \yii\web\Controller
             }
         }
 
+        $model->sex=0;
+
         return $this->render('signup', [
                 'model' => $model,
         ]);

@@ -17,7 +17,7 @@ $user = new User;
     <p>Please fill out the following fields to signup:</p>
     <?= Html::errorSummary($model)?>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <?php $form = ActiveForm::begin([
                 'id' => 'form-signup',
                 'options' => [
@@ -31,7 +31,7 @@ $user = new User;
                 ]
                 ]); ?>
                 <?= $form->field($model, 'mobile') ?>
-                <?= $form->field($model, 'smscode') ?>
+                <?= $form->field($model, 'smscode')->widget(yii\easyii\widgets\SMSCodeInput::className()) ?>
                 <?= $form->field($model, 'name') ?>
                 <?= $form->field($model, 'sex')->inline()->radioList($user->getSexs()) ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>

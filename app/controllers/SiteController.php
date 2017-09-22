@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use yii\easyii\modules\page\models\Page;
-use yii\easyii\helpers\SMS;
 use yii\web\Controller;
 use yii\web\BadRequestHttpException;
 
@@ -16,6 +15,9 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'send-sms-code' =>[
+                'class' => 'yii\easyii\behaviors\SMSCodeAction'
+            ]
         ];
     }
 
@@ -25,18 +27,5 @@ class SiteController extends Controller
             return $this->redirect(['/install/step1']);
         }
         return $this->render('index');
-    }
-
-    /**
-     * 注册时发送短信验证码
-     * @throws BadRequestHttpException
-     */
-     public function actionSendSmsCode() {
-        $mobile = Yii::$app->request->getQueryParam('mobile');
-        if (SMS::sendSms($mobile)) {
-            return true;
-        } else {
-            throw new BadRequestHttpException('验证码发送失败');
-        }
     }
 }
