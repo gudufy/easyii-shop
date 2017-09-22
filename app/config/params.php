@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return [
+    'user.passwordResetTokenExpire' => 3600
+];

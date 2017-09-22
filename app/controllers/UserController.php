@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\form\Login;
 use app\models\form\PasswordResetRequest;
+use app\models\form\PasswordResetRequestMobile;
 use app\models\form\ResetPassword;
 use app\models\form\Signup;
 use app\models\form\ChangePassword;
@@ -36,22 +37,6 @@ class UserController extends \yii\web\Controller
                 ],
             ],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function beforeAction($action)
-    {
-        if (parent::beforeAction($action)) {
-            if (Yii::$app->has('mailer') && ($mailer = Yii::$app->getMailer()) instanceof BaseMailer) {
-                /* @var $mailer BaseMailer */
-                $this->_oldMailPath = $mailer->getViewPath();
-                $mailer->setViewPath('@easyii/rbac/mail');
-            }
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -144,11 +129,11 @@ class UserController extends \yii\web\Controller
         $model = new PasswordResetRequest();
         if ($model->load(Yii::$app->getRequest()->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+                $model->addError('email', 'Check your email for further instructions.');
 
                 return $this->goHome();
             } else {
-                Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+                $model->addError('email', 'Sorry, we are unable to reset password for email provided.');
             }
         }
 
@@ -156,6 +141,26 @@ class UserController extends \yii\web\Controller
                 'model' => $model,
         ]);
     }
+
+    /**
+     * Request reset password
+     * @return string
+     */
+     public function actionRequestPasswordResetMobile()
+     {
+         $model = new PasswordResetRequestMobile();
+         if ($model->load(Yii::$app->getRequest()->post()) && $model->validate()) {
+             if ($user = $model->setToken()) {
+                return $this->redirect(['/user/reset-password','token'=>$user->password_reset_token]);
+             } else {
+                 $model->addError('mobile', '设置token失败');
+             }
+         }
+ 
+         return $this->render('requestPasswordResetMobile', [
+                 'model' => $model,
+         ]);
+     }
 
     /**
      * Reset password

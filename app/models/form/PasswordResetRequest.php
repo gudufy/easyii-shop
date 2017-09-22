@@ -3,6 +3,7 @@ namespace app\models\form;
 
 use Yii;
 use yii\easyii\modules\rbac\models\User;
+use yii\easyii\models\Setting;
 use yii\base\Model;
 
 /**
@@ -49,7 +50,7 @@ class PasswordResetRequest extends Model
 
             if ($user->save()) {
                 return Yii::$app->mailer->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
-                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+                    ->setFrom([Setting::get('robot_email') => Yii::$app->name . ' robot'])
                     ->setTo($this->email)
                     ->setSubject('Password reset for ' . Yii::$app->name)
                     ->send();
