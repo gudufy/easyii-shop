@@ -11,6 +11,8 @@ use yii\helpers\Html;
 $page = Page::get('page-index');
 
 $this->title = $page->seo('title', $page->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$page->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$page->seo('description')));
 ?>
 
 <?= Carousel::widget(1140, 520) ?>

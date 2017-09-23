@@ -4,6 +4,8 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $this->title = $cat->seo('title', $cat->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$cat->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$cat->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'Shop', 'url' => ['shop/index']];
 $this->params['breadcrumbs'][] = $cat->model->title;
 ?>

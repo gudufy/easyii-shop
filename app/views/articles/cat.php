@@ -3,6 +3,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $cat->seo('title', $cat->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$cat->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$cat->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['articles/index']];
 $this->params['breadcrumbs'][] = $cat->model->title;
 ?>

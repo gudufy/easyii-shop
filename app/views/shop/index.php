@@ -7,6 +7,8 @@ use yii\helpers\Html;
 $page = Page::get('page-shop');
 
 $this->title = $page->seo('title', $page->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$page->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$page->seo('description')));
 $this->params['breadcrumbs'][] = $page->model->title;
 
 function renderNode($node){

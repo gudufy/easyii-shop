@@ -5,6 +5,8 @@ use yii\easyii\modules\page\api\Page;
 $page = Page::get('page-shop-search');
 
 $this->title = $page->seo('title', $page->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$page->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$page->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'Shop', 'url' => ['shop/index']];
 $this->params['breadcrumbs'][] = $page->model->title;
 

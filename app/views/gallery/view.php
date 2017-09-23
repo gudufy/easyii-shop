@@ -2,6 +2,8 @@
 use yii\easyii\modules\gallery\api\Gallery;
 
 $this->title = $album->seo('title', $album->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$album->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$album->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'Gallery', 'url' => ['gallery/index']];
 $this->params['breadcrumbs'][] = $album->model->title;
 ?>

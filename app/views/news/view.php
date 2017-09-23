@@ -3,6 +3,8 @@ use yii\easyii\modules\news\api\News;
 use yii\helpers\Url;
 
 $this->title = $news->seo('title', $news->model->title);
+$this->registerMetaTag(array("name"=>"keywords","content"=>$news->seo('keywords'))); 
+$this->registerMetaTag(array("name"=>"descripition","content"=>$news->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['news/index']];
 $this->params['breadcrumbs'][] = $news->model->title;
 ?>
