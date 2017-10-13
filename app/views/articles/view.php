@@ -7,7 +7,9 @@ $this->registerMetaTag(array("name"=>"keywords","content"=>$article->seo('keywor
 $this->registerMetaTag(array("name"=>"descripition","content"=>$article->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['articles/index']];
 $this->params['breadcrumbs'][] = ['label' => $article->cat->title, 'url' => ['articles/cat', 'slug' => $article->cat->slug]];
-$this->params['breadcrumbs'][] = $article->model->title;
+//$this->params['breadcrumbs'][] = $article->model->title;
+$this->params['h1'] = $article->seo('h1');
+$this->params['title'] = $article->model->title;
 ?>
 <h1><?= $article->seo('h1', $article->title) ?></h1>
 

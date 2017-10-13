@@ -59,15 +59,10 @@ class UserController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    /**
-     * Displays a single User model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView()
+    public function actionProfile()
     {
-        return $this->render('view', [
-                'model' => $this->findModel(Yii::$app->user->getId()),
+        return $this->render('profile', [
+            'model' => $this->findModel(Yii::$app->user->getId()),
         ]);
     }
 
@@ -202,6 +197,67 @@ class UserController extends \yii\web\Controller
                 'model' => $model,
         ]);
     }
+
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     */
+     public function actionEdit()
+     {
+         $model = $this->findModel(Yii::$app->user->getId());
+ 
+         if ($model->load(Yii::$app->request->post())) {
+             if(Yii::$app->request->isAjax){
+                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                 return ActiveForm::validate($model);
+             }
+             else{
+                 if($model->save()){
+                     Yii::$app->getSession()->setFlash('success', Yii::t('easyii', 'User updated'));
+                 }
+                 else{
+                     Yii::$app->getSession()->setFlash('error', Yii::t('easyii', 'Update error. {0}', $model->formatErrors()));
+                 }
+                 return $this->refresh();
+             }
+         }
+         else {
+             return $this->render('edit', [
+                 'model' => $model,
+             ]);
+         }
+     }
+
+     /**
+     * Bind user
+     * @return string
+     */
+     public function actionBind($openid,$access_token,$refresh_token,$nickname='',$sex=0,$headimgurl='')
+     {
+         $model = new Bind();
+         if ($model->load(Yii::$app->getRequest()->post())) {
+             if ($user = $model->bind($openid,$access_token,$refresh_token,$headimgurl)) {
+                 //自动登录
+                 if (Yii::$app->getUser()->login($user, 0)) {
+                    if ($return_url = Yii::$app->session->get("return_url")){
+                        return $this->redirect($return_url);
+                    }
+                    
+                    return $this->goHome();
+                }
+                 
+                return $this->redirect(['/user/login']);
+             }
+         }
+ 
+         $model->sex=0;
+         $model->name = $nickname;
+ 
+         return $this->render('bind', [
+                 'model' => $model,
+         ]);
+     }
 
     /**
      * Activate new user

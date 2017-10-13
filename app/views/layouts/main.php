@@ -55,7 +55,7 @@ $goodsCount = count(Shopcart::goods());
                             ['class' => 'btn btn-default btn-flat','data-toggle'=>'dropdown']
                         ) ?>
                         <ul class="dropdown-menu">
-                            <li><?= Html::a('个人资料', ['/user/view']) ?></li>
+                            <li><?= Html::a('个人资料', ['/user/profile']) ?></li>
                             <li><?= Html::a('修改密码', ['/user/change-password']) ?></li>
                             <li role="separator" class="divider"></li>
                             <li><?= Html::a('退出登录', ['/user/logout'],['data-method' => 'post']) ?></li>

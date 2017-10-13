@@ -48,6 +48,13 @@ class ResetPassword extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'password' => '新密码',
+        ];
+    }
+
     /**
      * Resets password.
      *

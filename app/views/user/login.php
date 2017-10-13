@@ -6,28 +6,32 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \yii\easyii\modules\rbac\models\form\Login */
 
-$this->title = Yii::t('rbac-admin', 'Login');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '登录';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['user/request-password-reset-mobile']) ?>.
-                    For new user you can <?= Html::a('signup', ['user/signup']) ?>.
+<section class="module">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="up-form text-left">
+                    <?php $form = ActiveForm::begin([
+                            'id' => 'login-form',
+                        ]); ?>
+                        <?= $form->field($model, 'username')->textInput(['placeholder'=>$model->getAttributeLabel('username')])->label(false) ?>
+                        <?= $form->field($model, 'password')->passwordInput(['placeholder'=>$model->getAttributeLabel('password')])->label(false) ?>
+                        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                        <div class="form-group text-center">
+                            <?= Html::submitButton('登 录', ['class' => 'btn btn-circle btn-lg btn-brand', 'name' => 'login-button']) ?>
+                        </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('rbac-admin', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <div class="up-help">
+                    <p>如果你忘记了密码，请 <?= Html::a('点这里找回', ['user/request-password-reset-mobile']) ?>.</p>
+                    <p>对于新用户, 您可以 <?= Html::a('免费注册', ['user/signup']) ?>.</p>
                 </div>
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
-</div>
+</section>
+

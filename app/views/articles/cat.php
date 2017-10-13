@@ -6,7 +6,9 @@ $this->title = $cat->seo('title', $cat->model->title);
 $this->registerMetaTag(array("name"=>"keywords","content"=>$cat->seo('keywords'))); 
 $this->registerMetaTag(array("name"=>"descripition","content"=>$cat->seo('description')));
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['articles/index']];
-$this->params['breadcrumbs'][] = $cat->model->title;
+//$this->params['breadcrumbs'][] = $cat->model->title;
+$this->params['h1'] = $cat->seo('h1');
+$this->params['title'] = $cat->model->title;
 ?>
 <h1><?= $cat->seo('h1', $cat->title) ?></h1>
 <br/>

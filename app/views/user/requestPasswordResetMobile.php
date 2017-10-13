@@ -6,36 +6,28 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \yii\easyii\modules\rbac\models\form\PasswordResetRequest */
 
-$this->title = 'Request password reset';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '找回密码';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-request-password-reset">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out your mobile. A link to reset password will be sent there.</p>
-
-    <div class="row">
-        <div class="col-lg-6">
-            <?php $form = ActiveForm::begin([
-                'id' => 'request-password-reset-form',
-                'options' => [
-                    'class' => 'form-horizontal',
-                ],
-                'fieldConfig' => [
-                    'template' => '{label}<div class="col-lg-6">{input}</div>{hint}{error}',
-                    'labelOptions' => [
-                        'class' => 'control-label col-lg-2',
-                    ],
-                ]
-            ]); ?>
-                <?= $form->field($model, 'mobile') ?>
-                <?= $form->field($model, 'smscode')->widget(yii\easyii\widgets\SMSCodeInput::className(),['validator'=>true]) ?>
-                <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-10">
-                    <?= Html::submitButton('下一步', ['class' => 'btn btn-primary']) ?>
+<section class="module">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <p>请验证您注册时的手机号码。</p>
+                <div class="up-form text-left">
+                    <?php $form = ActiveForm::begin([
+                        'id' => 'request-password-reset-form',
+                    ]); ?>
+                        <?= $form->field($model, 'mobile')->textInput(['placeholder'=>$model->getAttributeLabel('mobile')])->label(false) ?>
+                        <?= $form->field($model, 'smscode')->widget(yii\easyii\widgets\SMSCodeInput::className(),['validator'=>'forget','placeholder'=>$model->getAttributeLabel('smscode'),'btnCssClass'=>'btn btn-gray'])->label(false) ?>
+                        <div class="form-group text-center">
+                            <?= Html::submitButton('下一步', ['class' => 'btn btn-circle btn-lg btn-brand', 'name' => 'login-button']) ?>
+                        </div>
+                    </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
-</div>
+</section>

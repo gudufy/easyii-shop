@@ -6,22 +6,24 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \yii\easyii\modules\rbac\models\form\ResetPassword */
 
-$this->title = 'Reset password';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '重置密码';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-reset-password">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please choose your new password:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::t('rbac-admin', 'Save'), ['class' => 'btn btn-primary']) ?>
+<section class="module">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <p>请输入新密码。</p>
+                <div class="up-form text-left">
+                    <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+                        <?= $form->field($model, 'password')->passwordInput(['placeholder'=>$model->getAttributeLabel('password')])->label(false) ?>
+                        <div class="form-group text-center">
+                            <?= Html::submitButton('提交', ['class' => 'btn btn-circle btn-lg btn-brand']) ?>
+                        </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
-</div>
+</section>

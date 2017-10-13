@@ -31,16 +31,25 @@ class ChangePassword extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'oldPassword'=>'旧密码',
+            'newPassword'=>'新密码',
+            'retypePassword' => '确认密码',
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
      */
-    public function validatePassword()
+    public function validatePassword($attribute, $params)
     {
         /* @var $user User */
-        $user = Yii::$app->user->identity;
+        $user = User::findOne(Yii::$app->user->getId());
         if (!$user || !$user->validatePassword($this->oldPassword)) {
-            $this->addError('oldPassword', 'Incorrect old password.');
+            $this->addError($attribute, '旧密码输入错误');
         }
     }
 
@@ -53,7 +62,7 @@ class ChangePassword extends Model
     {
         if ($this->validate()) {
             /* @var $user User */
-            $user = Yii::$app->user->identity;
+            $user = User::findOne(Yii::$app->user->getId());
             $user->setPassword($this->newPassword);
             $user->generateAuthKey();
             if ($user->save()) {

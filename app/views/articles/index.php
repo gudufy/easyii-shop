@@ -8,7 +8,9 @@ $page = Page::get('page-articles');
 $this->title = $page->seo('title', $page->model->title);
 $this->registerMetaTag(array("name"=>"keywords","content"=>$page->seo('keywords'))); 
 $this->registerMetaTag(array("name"=>"descripition","content"=>$page->seo('description')));
-$this->params['breadcrumbs'][] = $page->model->title;
+//$this->params['breadcrumbs'][] = $page->model->title;
+$this->params['h1'] = $page->seo('h1');
+$this->params['title'] = $page->model->title;
 
 function renderNode($node){
     if(!count($node->children)){

@@ -35,6 +35,14 @@ class PasswordResetRequestMobile extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'mobile' => '手机号',
+            'smscode' => '验证码',
+        ];
+    }
+
     public function setToken()
     {
         /* @var $user User */

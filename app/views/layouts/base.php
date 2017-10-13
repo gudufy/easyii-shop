@@ -8,10 +8,9 @@ $asset = \app\assets\AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <title><?= Html::encode($this->title) ?>-<?=Setting::get('site_name') ?></title>
         <link rel="shortcut icon" href="<?= $asset->baseUrl ?>/favicon.ico" type="image/x-icon">
         <link rel="icon" href="<?= $asset->baseUrl ?>/favicon.ico" type="image/x-icon">
         <?php $this->head() ?>

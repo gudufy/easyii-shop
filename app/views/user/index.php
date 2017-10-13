@@ -13,5 +13,5 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-
+<?= $this->render('_sidebar') ?>
 </div>

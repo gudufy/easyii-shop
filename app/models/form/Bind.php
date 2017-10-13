@@ -11,9 +11,9 @@ use yii\easyii\models\Setting;
 use yii\helpers\Url;
 
 /**
- * Signup form
+ * Bind form
  */
-class Signup extends Model
+class Bind extends Model
 {
     public $mobile;
     public $smscode;
@@ -30,7 +30,6 @@ class Signup extends Model
         return [
             ['mobile', 'filter', 'filter' => 'trim'],
             ['mobile', 'required'],
-            ['mobile', 'unique', 'targetClass' => 'yii\easyii\modules\rbac\models\User', 'message' => '该手机号已经被使用。'],
             //['username', 'string', 'min' => 2, 'max' => 255],
             ['mobile', 'string', 'min' => 11, 'max' => 11],
             ['mobile','match','pattern'=>'/^1[0-9]{10}$/','message'=>'{attribute}必须为1开头的11位纯数字'],
@@ -64,28 +63,39 @@ class Signup extends Model
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
-    public function signup()
+    public function bind($openid,$access_token,$refresh_token,$headimgurl='')
     {
         if ($this->validate()) {
-            $user = new User();
-            $user->username = $this->mobile;
-            $user->mobile = $this->mobile;
-            $user->name = $this->name;
-            $user->sex = $this->sex;
-            $user->setPassword($this->password || $this->smscode);
-            $user->generateAuthKey();
-            if ($user->save()) {
-                $model = new Assignment($user->id);
-                $success = $model->assign(['user']);
+            $user_check = User::find()->where(['mobile'=>$this->mobile])->one();
+            if ($user_check){
+                $user_check->openid = $openid;
+                $user_check->access_token = $access_token;
+                $user_check->refresh_token = $refresh_token;
+                $user_check->image = $headimgurl;
+                $user_check->update();
 
-                self::mailAdmin($user);
-
-                return $user;
+                return $user_check;
+            }
+            else{
+                $user = new User();
+                $user->username = $this->mobile;
+                $user->mobile = $this->mobile;
+                $user->name = $this->name;
+                $user->sex = $this->sex;
+                $user->openid = $openid;
+                $user->access_token = $access_token;
+                $user->refresh_token = $refresh_token;
+                $user->image = $headimgurl;
+                $user->setPassword($this->password || $this->smscode);
+                $user->generateAuthKey();
+                if ($user->save()) {
+                    $model = new Assignment($user->id);
+                    $success = $model->assign(['user']);
+    
+                    self::mailAdmin($user);
+    
+                    return $user;
+                }
             }
         }
 
