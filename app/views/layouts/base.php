@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\easyii\models\Setting;
 
 $asset = \app\assets\AppAsset::register($this);
 ?>
